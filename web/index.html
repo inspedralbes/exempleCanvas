@@ -12,15 +12,27 @@
             document.getElementById("canvas").addEventListener("mousemove", pintarRatoli);
 
         }
+
+        //Factor de zoom
+        const zoom = 3;
+
         function pintarRatoli(e) {
+            
+            //A cada moviment hem de repintar tot el fons, sinó el ratolí
+            //va deixant estela
             pintarCanvas();
+
             posX = e.offsetX;
             posY = e.offsetY;
+            const gruix = 10; //Gruix del nou cursor
             var canvas = document.getElementById("canvas");
             var context = canvas.getContext("2d");
-            context.fillStyle = "#0F0";
-            context.fillRect(posX-10, posY-10, 20, 20);
 
+            context.fillStyle = "#0F0";
+            //context.fillRect(posX- (gruix/2), posY - (gruix/2), gruix, gruix);
+            context.beginPath();
+            context.arc(posX - (gruix / 2), posY - (gruix / 2), gruix, 0, 2 * Math.PI);
+            context.fill();
 
         }
         function pintarCanvas() {
@@ -29,8 +41,7 @@
             const amplada = 400;
             const alcada = 400;
 
-            //Factor de zoom
-            const zoom = 4;
+
 
             //colors
             const negre = "#000";
@@ -67,6 +78,12 @@
 
         }
     </script>
+
+    <style>
+        canvas {
+            cursor: none;
+        }
+    </style>
 </head>
 
 <body>
