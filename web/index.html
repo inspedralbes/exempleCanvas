@@ -2,39 +2,79 @@
 <html lang="ca">
 
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Exemple bàsic de JS Canvas</title>
-	<script type="text/javascript">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemple bàsic de JS Canvas</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            pintarCanvas();
+            document.getElementById("canvas").addEventListener("mousemove", pintarRatoli);
 
-		function pintaCanvas() {
-			var canvas = document.getElementById("canvas");
-			var context = canvas.getContext("2d");
+        }
+        function pintarRatoli(e) {
+            pintarCanvas();
+            posX = e.offsetX;
+            posY = e.offsetY;
+            var canvas = document.getElementById("canvas");
+            var context = canvas.getContext("2d");
+            context.fillStyle = "#0F0";
+            context.fillRect(posX-10, posY-10, 20, 20);
 
-			//Fons 
-			context.fillStyle = "#ffffaa";
-			context.fillRect(0, 0, 500, 300);
-			context.fillStyle = "#000000";
 
-			//Text
-			context.font = "28px _sans";
-			context.textBaseline = "top";
-			context.fillText("Hola Món!", 195, 80);
+        }
+        function pintarCanvas() {
+            var canvas = document.getElementById("canvas");
+            var context = canvas.getContext("2d");
+            const amplada = 400;
+            const alcada = 400;
 
-			//Caixa
-			context.strokeStyle = "#000000";
-			context.strokeRect(5, 5, 490, 290);
-		}
-	</script>
+            //Factor de zoom
+            const zoom = 4;
+
+            //colors
+            const negre = "#000";
+            const blau = "#aaaeef";
+
+
+            //Fons 
+            context.fillStyle = "#ffffff";
+            context.fillRect(0, 0, amplada, alcada);
+            context.strokeRect(1, 1, amplada - 1, alcada - 1);
+
+            //Rectangles
+            context.fillStyle = negre; //Tots de color negre
+            context.fillRect(6 * zoom, 34 * zoom, 26 * zoom, (101 - 34) * zoom);
+            context.fillRect(37 * zoom, 3 * zoom, 26 * zoom, (101 - 3) * zoom);
+            context.fillRect(68 * zoom, 3 * zoom, 26 * zoom, (67 - 3) * zoom);
+
+            //Çercles
+            context.fillStyle = blau;
+            context.beginPath();
+            context.arc(19 * zoom, 16 * zoom, (16 - 3) * zoom, 0, 2 * Math.PI);
+            context.fill();
+            context.beginPath();
+            context.arc(81 * zoom, 87 * zoom, (16 - 3) * zoom, 0, 2 * Math.PI);
+            context.fill();
+            //context.fillStyle = "#000000";
+            //Text
+            //context.font = "28px _sans";
+            //context.textBaseline = "top";
+            //context.fillText("Hola Món!", 195, 80);
+
+            //Caixa
+            context.strokeStyle = "#000000";
+
+        }
+    </script>
 </head>
 
-<body onload="pintaCanvas()">
-	<div style="position: absolute; top: 50px; left: 50px;">
-		<canvas id="canvas" width="500" height="300">
-			El teu navegador no suporta HTML 5 canvas
-		</canvas>
-	</div>
+<body>
+    <div style="position: absolute; top: 50px; left: 50px;">
+        <canvas id="canvas" width="400" height="400">
+            El teu navegador no suporta HTML 5 canvas
+        </canvas>
+    </div>
 </body>
 
 </html>
