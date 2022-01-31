@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ca">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Exemple bàsic de JS Canvas</title>
+	<script type="text/javascript">
+
+		function pintaCanvas() {
+			var canvas = document.getElementById("canvas");
+			var context = canvas.getContext("2d");
+
+			//Fons 
+			context.fillStyle = "#ffffaa";
+			context.fillRect(0, 0, 500, 300);
+			context.fillStyle = "#000000";
+
+			//Text
+			context.font = "28px _sans";
+			context.textBaseline = "top";
+			context.fillText("Hola Món!", 195, 80);
+
+			//Caixa
+			context.strokeStyle = "#000000";
+			context.strokeRect(5, 5, 490, 290);
+		}
+	</script>
+</head>
+
+<body onload="pintaCanvas()">
+	<div style="position: absolute; top: 50px; left: 50px;">
+		<canvas id="canvas" width="500" height="300">
+			El teu navegador no suporta HTML 5 canvas
+		</canvas>
+	</div>
+</body>
+
+</html>
