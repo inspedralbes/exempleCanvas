@@ -8,58 +8,58 @@
     <title>Exemple bàsic de JS Canvas</title>
     <script type="text/javascript">
         window.onload = function () {
-            pintarCanvas();
-            document.getElementById("canvas").addEventListener("mousemove", pintarRatoli);
-
+            repintarInicial();
+            document.getElementById("canvas").addEventListener("mousemove", repintar);
+            document.getElementById("canvas").addEventListener("mouseout", repintarInicial);
         }
 
         //Factor de zoom
         const zoom = 3;
+        //colors
+        const negre = "#000";
+        const blau = "#aaaeef";
+        //Mides del canvas
+        const amplada = 400;
+        const alcada = 400;
 
-        function pintarRatoli(e) {
-            
+        function repintarInicial() {
+            repintar();
+        }
+        
+
+        //Repinta tots els elements
+        //1-Parts del logo que van al fons
+        //2- Punter del ratoli si cal
+        //3- Parts del logo que van davant
+        function repintar(e) {            
+
             //A cada moviment hem de repintar tot el fons, sinó el ratolí
             //va deixant estela
-            pintarCanvas();
-
-            posX = e.offsetX;
-            posY = e.offsetY;
-            const gruix = 10; //Gruix del nou cursor
             var canvas = document.getElementById("canvas");
             var context = canvas.getContext("2d");
 
-            context.fillStyle = "#0F0";
-            //context.fillRect(posX- (gruix/2), posY - (gruix/2), gruix, gruix);
-            context.beginPath();
-            context.arc(posX - (gruix / 2), posY - (gruix / 2), gruix, 0, 2 * Math.PI);
-            context.fill();
+            pintarFons(context);
+            pintarRec1(context);
+            pintarRec3(context);
 
+            //Només pintem el ratoli si hi ha algun event de ratolí
+            if (e != null) {
+                pintarRatoli(e);
+            }else {
+                pintarBoles(context);
+            }
+
+            pintarRec2(context);
+            
         }
-        function pintarCanvas() {
-            var canvas = document.getElementById("canvas");
-            var context = canvas.getContext("2d");
-            const amplada = 400;
-            const alcada = 400;
 
-
-
-            //colors
-            const negre = "#000";
-            const blau = "#aaaeef";
-
-
-            //Fons 
+        function pintarFons(context) {
             context.fillStyle = "#ffffff";
             context.fillRect(0, 0, amplada, alcada);
             context.strokeRect(1, 1, amplada - 1, alcada - 1);
+        }
 
-            //Rectangles
-            context.fillStyle = negre; //Tots de color negre
-            context.fillRect(6 * zoom, 34 * zoom, 26 * zoom, (101 - 34) * zoom);
-            context.fillRect(37 * zoom, 3 * zoom, 26 * zoom, (101 - 3) * zoom);
-            context.fillRect(68 * zoom, 3 * zoom, 26 * zoom, (67 - 3) * zoom);
-
-            //Çercles
+        function pintarBoles(context) {
             context.fillStyle = blau;
             context.beginPath();
             context.arc(19 * zoom, 16 * zoom, (16 - 3) * zoom, 0, 2 * Math.PI);
@@ -67,16 +67,43 @@
             context.beginPath();
             context.arc(81 * zoom, 87 * zoom, (16 - 3) * zoom, 0, 2 * Math.PI);
             context.fill();
-            //context.fillStyle = "#000000";
-            //Text
-            //context.font = "28px _sans";
-            //context.textBaseline = "top";
-            //context.fillText("Hola Món!", 195, 80);
-
-            //Caixa
-            context.strokeStyle = "#000000";
-
         }
+
+        function pintarRec1(context) {
+            //Rectangles
+            context.fillStyle = negre; //Tots de color negre
+            context.fillRect(6 * zoom, 34 * zoom, 26 * zoom, (101 - 34) * zoom);
+        }
+
+        function pintarRec2(context) {
+            //Rectangles
+            context.fillStyle = negre; //Tots de color negre
+            context.fillRect(37 * zoom, 3 * zoom, 26 * zoom, (101 - 3) * zoom);
+        }
+
+        function pintarRec3(context) {
+            //Rectangles
+            context.fillStyle = negre; //Tots de color negre
+            context.fillRect(68 * zoom, 3 * zoom, 26 * zoom, (67 - 3) * zoom);
+        }
+
+
+        function pintarRatoli(e) {
+            var canvas = document.getElementById("canvas");
+            var context = canvas.getContext("2d");
+
+            posX = e.offsetX;
+            posY = e.offsetY;
+            const gruix = 20; //Gruix del nou cursor
+
+            context.fillStyle = blau;
+            //context.fillRect(posX- (gruix/2), posY - (gruix/2), gruix, gruix);
+            context.beginPath();
+            context.arc(posX - (gruix / 2), posY - (gruix / 2), (16 - 3) * zoom, 0, 2 * Math.PI);            
+            context.fill();
+        }
+
+
     </script>
 
     <style>
