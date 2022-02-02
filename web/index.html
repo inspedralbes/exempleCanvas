@@ -25,13 +25,13 @@
         function repintarInicial() {
             repintar();
         }
-        
+
 
         //Repinta tots els elements
         //1-Parts del logo que van al fons
         //2- Punter del ratoli si cal
         //3- Parts del logo que van davant
-        function repintar(e) {            
+        function repintar(e) {
 
             //A cada moviment hem de repintar tot el fons, sinó el ratolí
             //va deixant estela
@@ -45,12 +45,13 @@
             //Només pintem el ratoli si hi ha algun event de ratolí
             if (e != null) {
                 pintarRatoli(e);
-            }else {
+                //pintarBola2(context);
+            } else {
                 pintarBoles(context);
             }
 
             pintarRec2(context);
-            
+
         }
 
         function pintarFons(context) {
@@ -60,13 +61,22 @@
         }
 
         function pintarBoles(context) {
+            pintarBola1(context);
+            pintarBola2(context);
+        }
+        function pintarBola1(context) {
             context.fillStyle = blau;
             context.beginPath();
             context.arc(19 * zoom, 16 * zoom, (16 - 3) * zoom, 0, 2 * Math.PI);
             context.fill();
+        }
+
+        function pintarBola2(context) {
+            context.fillStyle = blau;
             context.beginPath();
             context.arc(81 * zoom, 87 * zoom, (16 - 3) * zoom, 0, 2 * Math.PI);
             context.fill();
+
         }
 
         function pintarRec1(context) {
@@ -91,7 +101,7 @@
         function pintarRatoli(e) {
             var canvas = document.getElementById("canvas");
             var context = canvas.getContext("2d");
-
+            context.globalAlpha = 0.8;
             posX = e.offsetX;
             posY = e.offsetY;
             const gruix = 20; //Gruix del nou cursor
@@ -99,8 +109,9 @@
             context.fillStyle = blau;
             //context.fillRect(posX- (gruix/2), posY - (gruix/2), gruix, gruix);
             context.beginPath();
-            context.arc(posX - (gruix / 2), posY - (gruix / 2), (16 - 3) * zoom, 0, 2 * Math.PI);            
+            context.arc(posX - (gruix / 2), posY - (gruix / 2), (16 - 3) * zoom, 0, 2 * Math.PI);
             context.fill();
+            context.globalAlpha = 1;
         }
 
 
